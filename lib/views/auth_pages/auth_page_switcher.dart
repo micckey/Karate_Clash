@@ -1,0 +1,33 @@
+import 'package:flutter/material.dart';
+import 'package:karateclash/views/auth_pages/login_page.dart';
+import 'package:karateclash/views/auth_pages/register_page.dart';
+
+class AuthPageSwitcher extends StatefulWidget {
+  const AuthPageSwitcher({super.key});
+
+  @override
+  State<AuthPageSwitcher> createState() => _AuthPageSwitcherState();
+}
+
+class _AuthPageSwitcherState extends State<AuthPageSwitcher> {
+  bool isLoginPage = true;
+
+  void switchAuthPages() {
+    setState(() {
+      isLoginPage = !isLoginPage;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (isLoginPage) {
+      return LoginPage(
+        switchPagesFunction: switchAuthPages,
+      );
+    } else {
+      return RegisterPage(
+        switchPagesFunction: switchAuthPages,
+      );
+    }
+  }
+}
