@@ -132,7 +132,7 @@ class MyTextWidget extends StatelessWidget {
 
 class HomePageCard extends StatelessWidget {
   final double containerHeight;
-  final String imagePath;
+  final List imagePath;
   final String title;
 
   const HomePageCard({
@@ -150,41 +150,45 @@ class HomePageCard extends StatelessWidget {
       child: ListView.builder(
         physics: const BouncingScrollPhysics(),
         scrollDirection: Axis.horizontal,
+        itemCount: 3,
         itemBuilder: (context, index) {
           return GestureDetector(
             onTap: () {
-              Get.to(() => const EventPage(eventType: 'Other'), arguments: [imagePath]);
+              Get.to(() => const EventPage(eventType: 'Other'),
+                  arguments: [imagePath[index]]);
             },
             child: Container(
               margin: const EdgeInsets.only(right: 10),
               width: 200,
               decoration: BoxDecoration(
                   image: DecorationImage(
-                      image: AssetImage(imagePath), fit: BoxFit.fill),
+                      image: AssetImage(imagePath[index]), fit: BoxFit.fill),
                   color: CustomColors().cardColor,
                   borderRadius: BorderRadius.circular(30)),
               child: Stack(children: [
                 Positioned(
-                  top: 10,
-                  left: 5,
+                  bottom: 10,
+                  left: 0,
+                  right: 0,
                   child: Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 10),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
                         gradient: LinearGradient(
                             begin: Alignment.bottomLeft,
                             end: Alignment.topRight,
                             colors: [
-                              CustomColors().cardColor.withOpacity(0.65),
-                              CustomColors().buttonColor.withOpacity(0.45)
+                              CustomColors().cardColor.withOpacity(0.95),
+                              CustomColors().buttonColor.withOpacity(0.85)
                             ])),
                     child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           MyTextWidget(
                               text: title,
                               color: CustomColors().lightTextColor,
                               size: 15.0,
-                              fontWeight: FontWeight.w700),
+                              fontWeight: FontWeight.w900),
                           MyTextWidget(
                               text: 'The Date',
                               color: CustomColors()
@@ -207,41 +211,52 @@ class HomePageCard extends StatelessWidget {
 class CustomNavBarIcons extends StatelessWidget {
   Function() onTapMethod;
   final IconData icon;
-  final String labelName;
+
   bool isActive;
+  String imagePath;
+  bool isIcon;
 
   CustomNavBarIcons({
     super.key,
     required this.onTapMethod,
+    this.isIcon = true,
+    this.imagePath = '',
     this.isActive = false,
     required this.icon,
-    required this.labelName,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-        onTap: () {
-          onTapMethod();
-        },
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              icon,
-              color: isActive
-                  ? CustomColors().buttonTextColor
-                  : CustomColors().lightTextColor.withOpacity(0.5),
-              size: isActive ? 40 : 30,
-            ),
-            isActive
-                ? MyTextWidget(
-                    text: labelName,
-                    color: CustomColors().buttonTextColor,
-                    size: 13.0,
-                    fontWeight: FontWeight.w400)
-                : const SizedBox.shrink(),
-          ],
-        ));
+      onTap: () {
+        onTapMethod();
+      },
+      child: isActive
+          ? Container(
+              height: 70,
+              width: 70,
+              decoration: BoxDecoration(
+                  color: CustomColors().mainColor,
+                  borderRadius: BorderRadius.circular(35)),
+              child: isIcon
+                  ? Icon(
+                      icon,
+                      color: CustomColors().darkTextColor.withOpacity(0.7),
+                      size: 30,
+                    )
+                  : Image.asset(
+                      imagePath,
+                    ),
+            )
+          : isIcon
+              ? Icon(
+                  icon,
+                  color: isActive
+                      ? CustomColors().buttonTextColor
+                      : CustomColors().darkTextColor.withOpacity(0.7),
+                  size: 30,
+                )
+              : Image.asset(imagePath),
+    );
   }
 }

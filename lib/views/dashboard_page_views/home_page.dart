@@ -16,10 +16,27 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   List<String> imageList = [
     'assets/images/referee.png',
-    'assets/images/instructor.png'
+    'assets/images/instructor.png',
+    'assets/images/hiking.png'
   ];
 
-  List<String> courseList = ['Referee and Coach', 'Instructor'];
+  List<String> courseList = [
+    'Referee n Coach Course',
+    'Instructor Course',
+    'Hiking n Bootcamp'
+  ];
+
+  List<String> gasshukuImagesList = [
+    'assets/images/gasshuku.jpg',
+    'assets/images/gasshuku3.jpg',
+    'assets/images/gasshuku2.jpeg',
+  ];
+
+  List<String> gradingImagesList = [
+    'assets/images/grading.jpeg',
+    'assets/images/gasshuku2.jpeg',
+    'assets/images/gasshuku.jpg',
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -47,105 +64,154 @@ class _HomePageState extends State<HomePage> {
                 child: PageView.builder(
                   physics: const BouncingScrollPhysics(),
                   scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) {
+                  itemCount: 4,
+                  itemBuilder: (context, pageViewIndex) {
+                    List<String> tournamentImagesList = [
+                      'assets/images/tourn3.jpeg',
+                      'assets/images/tourn4.jpeg',
+                      'assets/images/tournament.jpg',
+                      'assets/images/tourn2.jpg',
+                    ];
 
-                    String imagePath = 'assets/images/tournament.jpg';
-
-                    return Container(
-                      margin: const EdgeInsets.only(right: 10),
-                      decoration: BoxDecoration(
-                          color: CustomColors().cardColor,
-                          borderRadius: BorderRadius.circular(30),
-                          image: DecorationImage(
-                              image: AssetImage(imagePath),
-                              fit: BoxFit.fill)),
-                      child: Stack(
-                        children: [
-                          Positioned(
-                              top: 10,
-                              left: 10,
-                              child: Container(
-                                padding: const EdgeInsets.all(6),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20),
-                                    gradient: LinearGradient(
-                                        begin: Alignment.bottomLeft,
-                                        end: Alignment.topRight,
-                                        colors: [
-                                          CustomColors()
-                                              .cardColor
-                                              .withOpacity(0.8),
-                                          CustomColors()
-                                              .buttonColor
-                                              .withOpacity(0.2)
-                                        ])),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    MyTextWidget(
-                                        text: 'Budokan Association',
-                                        color: CustomColors().darkTextColor,
-                                        size: 21.0,
-                                        fontWeight: FontWeight.w900),
-                                    MyTextWidget(
-                                        text: 'Date: 09-12-2023',
-                                        color: CustomColors()
-                                            .darkTextColor
-                                            .withOpacity(0.7),
-                                        size: 16.0,
-                                        fontWeight: FontWeight.w900)
-                                  ],
-                                ),
-                              )),
-                          Positioned(
-                              bottom: 30,
-                              left: 0,
-                              right: 0,
-                              child: GestureDetector(
-                                onTap: () {
-                                  Get.to(() => const EventPage(eventType: 'Tournament'), arguments: [imagePath]);
-                                },
-                                child: Container(
-                                  margin: const EdgeInsets.symmetric(
-                                      horizontal: 80),
-                                  height: 50,
-                                  decoration: BoxDecoration(
-                                      boxShadow: [
-                                        BoxShadow(
-                                            color: CustomColors().buttonColor,
-                                            spreadRadius: 1,
-                                            blurRadius: 0.5,
-                                            offset: const Offset(0, 2)),
-                                        BoxShadow(
-                                            color: CustomColors().cardColor,
-                                            spreadRadius: 1,
-                                            blurRadius: 0.5,
-                                            offset: const Offset(0, 2))
-                                      ],
-                                      color: CustomColors().secondaryColor,
-                                      borderRadius: BorderRadius.circular(35)),
-                                  child: Center(
-                                      child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      MyTextWidget(
-                                          text: 'Take a look',
-                                          color: CustomColors().darkTextColor,
-                                          size: 17.0,
-                                          fontWeight: FontWeight.w800),
-                                      Image.asset(
-                                        'assets/images/arrow2.png',
-                                        height: 40,
-                                        width: 80,
-                                        color: CustomColors().darkTextColor,
-                                      )
-                                    ],
-                                  )),
-                                ),
-                              ))
-                        ],
-                      ),
+                    return Column(
+                      children: [
+                        Expanded(
+                          child: Container(
+                            margin: const EdgeInsets.only(right: 20),
+                            decoration: BoxDecoration(
+                                color: CustomColors().cardColor,
+                                borderRadius: BorderRadius.circular(30),
+                                image: DecorationImage(
+                                    image: AssetImage(
+                                        tournamentImagesList[pageViewIndex]),
+                                    fit: BoxFit.fill)),
+                            child: Stack(
+                              children: [
+                                Positioned(
+                                    top: 10,
+                                    left: 10,
+                                    child: Container(
+                                      padding: const EdgeInsets.all(6),
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                          gradient: LinearGradient(
+                                              begin: Alignment.bottomLeft,
+                                              end: Alignment.topRight,
+                                              colors: [
+                                                CustomColors()
+                                                    .cardColor
+                                                    .withOpacity(0.8),
+                                                CustomColors()
+                                                    .buttonColor
+                                                    .withOpacity(0.2)
+                                              ])),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          MyTextWidget(
+                                              text: 'Budokan Association',
+                                              color:
+                                                  CustomColors().darkTextColor,
+                                              size: 21.0,
+                                              fontWeight: FontWeight.w900),
+                                          MyTextWidget(
+                                              text: 'Date: 09-12-2023',
+                                              color: CustomColors()
+                                                  .darkTextColor
+                                                  .withOpacity(0.7),
+                                              size: 16.0,
+                                              fontWeight: FontWeight.w900)
+                                        ],
+                                      ),
+                                    )),
+                                Positioned(
+                                    bottom: 30,
+                                    left: 0,
+                                    right: 0,
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        Get.to(
+                                            () => const EventPage(
+                                                eventType: 'Tournament'),
+                                            arguments: [
+                                              tournamentImagesList[
+                                                  pageViewIndex]
+                                            ]);
+                                      },
+                                      child: Container(
+                                        margin: const EdgeInsets.symmetric(
+                                            horizontal: 80),
+                                        height: 50,
+                                        decoration: BoxDecoration(
+                                            boxShadow: [
+                                              BoxShadow(
+                                                  color: CustomColors()
+                                                      .buttonColor,
+                                                  spreadRadius: 1,
+                                                  blurRadius: 0.5,
+                                                  offset: const Offset(0, 2)),
+                                              BoxShadow(
+                                                  color:
+                                                      CustomColors().cardColor,
+                                                  spreadRadius: 1,
+                                                  blurRadius: 0.5,
+                                                  offset: const Offset(0, 2))
+                                            ],
+                                            color:
+                                                CustomColors().secondaryColor,
+                                            borderRadius:
+                                                BorderRadius.circular(35)),
+                                        child: Center(
+                                            child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            MyTextWidget(
+                                                text: 'Take a look',
+                                                color: CustomColors()
+                                                    .darkTextColor,
+                                                size: 17.0,
+                                                fontWeight: FontWeight.w800),
+                                            Image.asset(
+                                              'assets/images/arrow2.png',
+                                              height: 40,
+                                              width: 80,
+                                              color:
+                                                  CustomColors().darkTextColor,
+                                            )
+                                          ],
+                                        )),
+                                      ),
+                                    ))
+                              ],
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: List.generate(4, (indicatorIndex) {
+                            return Container(
+                              margin: const EdgeInsets.only(right: 5),
+                              height: 10,
+                              width: indicatorIndex == pageViewIndex ? 15 : 10,
+                              decoration: BoxDecoration(
+                                  color: indicatorIndex == pageViewIndex
+                                      ? CustomColors().highlightColor
+                                      : CustomColors()
+                                          .highlightColor
+                                          .withOpacity(0.4),
+                                  borderRadius: BorderRadius.circular(10)),
+                            );
+                          }),
+                        )
+                      ],
                     );
                   },
                 ),
@@ -158,8 +224,11 @@ class _HomePageState extends State<HomePage> {
                   color: CustomColors().darkTextColor,
                   size: 20.0,
                   fontWeight: FontWeight.bold),
-               HomePageCard(containerHeight: screenHeight * 0.265, imagePath: 'assets/images/gasshuku.jpg',title: 'Shinji Akita Sensei',
-                  ),
+              HomePageCard(
+                containerHeight: screenHeight * 0.265,
+                imagePath: gasshukuImagesList,
+                title: 'Shinji Akita Sensei',
+              ),
               const SizedBox(
                 height: 10,
               ),
@@ -168,13 +237,16 @@ class _HomePageState extends State<HomePage> {
                   color: CustomColors().darkTextColor,
                   size: 20.0,
                   fontWeight: FontWeight.bold),
-               HomePageCard(containerHeight: screenHeight * 0.265, imagePath: 'assets/images/grading.jpeg', title: 'Budokan Grading',
-                  ),
+              HomePageCard(
+                containerHeight: screenHeight * 0.265,
+                imagePath: gradingImagesList,
+                title: 'Budokan Grading',
+              ),
               const SizedBox(
                 height: 10,
               ),
               MyTextWidget(
-                  text: 'Courses',
+                  text: 'Other Events',
                   color: CustomColors().darkTextColor,
                   size: 20.0,
                   fontWeight: FontWeight.bold),
@@ -185,7 +257,7 @@ class _HomePageState extends State<HomePage> {
                 child: ListView.builder(
                   physics: const BouncingScrollPhysics(),
                   scrollDirection: Axis.horizontal,
-                  itemCount: 2,
+                  itemCount: 3,
                   itemBuilder: (context, index) {
                     return Container(
                       margin: const EdgeInsets.only(right: 10),
@@ -210,6 +282,9 @@ class _HomePageState extends State<HomePage> {
                   },
                 ),
               ),
+              const SizedBox(
+                height: 90,
+              )
             ],
           ),
         ),

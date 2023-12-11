@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:karateclash/configurations/custom_widgets.dart';
 import 'package:karateclash/configurations/styles.dart';
@@ -18,8 +20,11 @@ class _DashBoardState extends State<DashBoard> {
   PageController pageController = PageController(initialPage: 1);
   int currentIndex = 1;
 
-  List navBarIcons = [Icons.history, Icons.home, Icons.checklist_rtl_rounded];
-  List navBarLabels = ['History', 'Home', 'Results'];
+  List navBarIcons = [
+    Icons.history,
+    Icons.home_filled,
+    Icons.checklist_rtl_rounded
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +63,7 @@ class _DashBoardState extends State<DashBoard> {
       drawer: const DashboardDrawer(),
       body: Stack(children: [
         Positioned.fill(
-          bottom: 80,
+          // bottom: 100,
           child: PageView(
             physics: const BouncingScrollPhysics(),
             controller: pageController,
@@ -79,27 +84,39 @@ class _DashBoardState extends State<DashBoard> {
             left: 0,
             right: 0,
             child: Container(
-              margin: const EdgeInsets.symmetric(horizontal: 5),
+              margin: const EdgeInsets.symmetric(horizontal: 30),
               width: double.maxFinite,
               height: 75,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(35),
-                color: CustomColors().highlightColor,
+                color: CustomColors().highlightColor.withOpacity(0.45),
               ),
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: List.generate(3, (navIndex) {
-                    return CustomNavBarIcons(
-                      onTapMethod: () {
-                        pageController.animateToPage(navIndex,
-                            duration: const Duration(seconds: 1),
-                            curve: Curves.ease);
-                      },
-                      icon: navBarIcons[navIndex],
-                      labelName: navBarLabels[navIndex],
-                      isActive: currentIndex == navIndex ? true : false,
-                    );
-                  })),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(35),
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 35.0, sigmaY: 35.0),
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      mainAxisSize: MainAxisSize.min,
+                      children: List.generate(3, (navIndex) {
+                        return Expanded(
+                          child: CustomNavBarIcons(
+                            onTapMethod: () {
+                              pageController.animateToPage(navIndex,
+                                  duration: const Duration(microseconds: 1000),
+                                  curve: Curves.ease);
+                            },
+                            icon: navBarIcons[navIndex],
+                            isIcon: navIndex == 1 ? false : true,
+                            imagePath: navIndex == 1
+                                ? 'assets/images/home_icon.png'
+                                : '',
+                            isActive: currentIndex == navIndex ? true : false,
+                          ),
+                        );
+                      })),
+                ),
+              ),
             ))
       ]),
     );
